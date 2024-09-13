@@ -2,7 +2,7 @@ function App() {
 
   return (
     <div className='app'>
-      Testing
+      checking client
     </div>
   )
 }
