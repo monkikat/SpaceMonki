@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler = require("express-async-handler");
-import { addAPODData, getReqAPOD, getTodayAPOD } from "../services/APODDataServices";
+import { addAPOD, fetchAPOD, getReqAPOD, getTodayAPOD, getWeeksAPOD, storeAPOD } from "../services/APODDataServices";
 
 //todays POD
 const getTodayAPODHandler = asyncHandler(async (req: Request, res: Response) => {
@@ -16,15 +16,34 @@ const getReqAPODHandler = asyncHandler(async (req: Request, res: Response) => {
     res.status(200).json(APODData);
 });
 
+//weeks POD
+const getWeeksAPODHandler = asyncHandler(async (req: Request, res: Response) => {
+    const weeksAPODData = await getWeeksAPOD();
+
+    res.status(200).json(weeksAPODData);
+});
+
 //add APOD to db
 const addAPODDataHandler = asyncHandler(async (req: Request, res: Response) => {
-    const addedAPODData = await addAPODData(req.body);
+    const addedAPODData = await addAPOD(req.body);
 
     res.status(201).json(addedAPODData);
 });
 
+//api call to NASA APOD API
+//to fetch numOfAPOD images and store in db
+const fetchAndStoreAPODDataHandler = asyncHandler(async (req: Request, res: Response) => {
+    const numOfAPOD = 29;
+    const fetchedAPODData = await fetchAPOD(numOfAPOD);
+    const storedData = await storeAPOD(fetchedAPODData);
+
+    res.status(200).json({ storedData });
+});
+
 module.exports = {
     getTodayAPODHandler,
-    getReqAPODHandler,
     addAPODDataHandler,
+    getReqAPODHandler,
+    getWeeksAPODHandler,
+    fetchAndStoreAPODDataHandler,
 };

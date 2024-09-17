@@ -16,6 +16,10 @@ const APODDataSchema = new Schema<IAPODDataType>(
             unique: true,
             required: true,
         },
+        explanation: {
+            type: String,
+            required: false,
+        },
         hdurl: {
             type: String,
             required: false,
