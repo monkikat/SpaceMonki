@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { NASA_APOD_KEY, PORT } from './utils/config';
 import { connectDB } from './database/db';
+import cors = require('cors');
 import axios from 'axios';
 import APODDataModel from './models/APODDataModel';
 
@@ -12,6 +13,8 @@ connectDB();
 /* Configurations */
 const app = express();
 app.use(express.json());
+
+app.use(cors());
 
 app.use('/api/apod', require('./routes/APODDataRoutes'));
 

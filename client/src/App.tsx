@@ -1,8 +1,13 @@
+import NavBar from "./components/NavBar"
+import LandingPage from "./pages/LandingPage"
+
 function App() {
 
   return (
     <div className='app'>
-      checking client
+      <div>checking running live</div>
+      <NavBar/>
+      <LandingPage/>
     </div>
   )
 }
