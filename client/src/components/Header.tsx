@@ -1,8 +1,9 @@
 const Header = () => {
   return (
     <div>
-      <p>SPACE</p>
-      <p>MONKI</p>
+      <h1>SPACE</h1>
+      <h1>MONKI</h1>
+      <h4>A MERN APOD Project by Monkikat :D</h4>
     </div>
   )
 }

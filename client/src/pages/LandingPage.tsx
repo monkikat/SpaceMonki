@@ -2,10 +2,12 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header"
 import axios from "axios";
+import { APODDataType } from "../types/APODDataType"
 import LandingPOD from "../components/LandingPOD";
 
+
 const LandingPage = () => {
-    const [PODData, setPODData] = useState(null);
+    const [PODData, setPODData] = useState<APODDataType | null>(null);
     
     useEffect(() => {
         async function fetchTodayAPOD() {
@@ -13,7 +15,8 @@ const LandingPage = () => {
 
             try{
                 const response = await axios.get(url);
-                setPODData(response.data);
+                const fetchedData = response.data;
+                setPODData(fetchedData);
                 console.log(PODData);
             }
 
@@ -27,9 +30,14 @@ const LandingPage = () => {
 
     return (
         <div>
-            <p>This is Landing Page</p>
             <Header/>
-            <LandingPOD data={PODData} />
+            {
+                PODData ? (
+                    <LandingPOD date={PODData?.date} explanation={PODData?.explanation} media_type={PODData?.media_type} service_version={PODData?.service_version} title={PODData?.title} url={PODData?.url} />
+                ) : (
+                    <p>Landing page data loading...</p>
+                )
+            }
         </div>
     )
 }

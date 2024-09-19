@@ -1,15 +1,19 @@
 import { APODDataType } from "../types/APODDataType"
 
-const LandingPOD: React.FC<APODDataType> = ({data}) => {
+const LandingPOD = (data: APODDataType) => {
     
-    return data ? (
+    return (
         <div>
-            <img alt="POD" src=".\src\assets\MermaidPOD.jpg" />
+            {
+                data.hdurl ? (
+                    <img alt="NASA Picure of the Day" src={data.hdurl} />
+                ) : (
+                    <img alt="NASA Picure of the Day" src={data.url} />
+                )
+            } 
             <p>{data.title}</p>
-            <p>{data.explanation}</p>
+            <p>{data.date}</p>
         </div>
-    ) : (
-        <p>Loading todays picture</p>
     )
 }
 
