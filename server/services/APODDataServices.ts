@@ -24,16 +24,12 @@ export async function getTodayAPOD(): Promise<IAPODDataType> {
     }
 }
 
-// get requested date APOD data
+// get requested date APOD data from db / api
 export async function getReqAPOD(reqDate: string): Promise<IAPODDataType> {
     try {
         const APODData = await APODDataModel.findOne({ date: reqDate });
 
-        if (!APODData) {
-            throw new Error('APOD Data not found')
-        }
-
-        return APODData;
+        return (!APODData) ? await fetchReqAPOD(reqDate) : APODData;
     }
 
     catch (err) {
@@ -69,6 +65,52 @@ export async function getWeeksAPOD(): Promise<IAPODDataType[]> {
 
     catch (err) {
         throw new Error(`could not find apod data for week: ${err.message}`);
+    }
+}
+
+// get 1 random APOD data
+export async function getRandomAPOD(): Promise<IAPODDataType> {
+    try {
+        const randomAPODData = await APODDataModel.aggregate([
+            {
+                $sample: {
+                    size: 1
+                }
+            }
+        ]);
+
+        if (!randomAPODData) {
+            throw new Error('Random APOD couldnt be retrieved')
+        }
+
+        return randomAPODData[0];
+    }
+
+    catch (err) {
+        throw new Error(`Couldnt get a random apod: ${err.message}`)
+    }
+}
+
+//get multiple random APOD data
+export async function getRandomAPODS(numOfAPOD: number): Promise<IAPODDataType[]> {
+    try {
+        const randomAPODData = await APODDataModel.aggregate([
+            {
+                $sample: {
+                    size: numOfAPOD
+                }
+            }
+        ]);
+
+        if (!randomAPODData) {
+            throw new Error('Random APOD/s couldnt be retrieved')
+        }
+
+        return (numOfAPOD === 1) ? randomAPODData[0] : randomAPODData;
+    }
+
+    catch (err) {
+        throw new Error(`Couldnt get random apod/s: ${err.message}`)
     }
 }
 
@@ -110,6 +152,26 @@ export async function fetchAPOD(numOfAPOD: number): Promise<IAPODDataType[]> {
 
     catch (err) {
         throw new Error(`Error retrieving data from nasa apod api: ${err.message}`);
+    }
+}
+
+//fetch requested APOD from api
+export async function fetchReqAPOD(reqDate: string): Promise<IAPODDataType> {
+    const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_APOD_KEY}` + `&date=${reqDate}`;
+
+    try {
+        const response = await axios.get(url);
+        const fetchedAPODData = response.data;
+
+        if (!fetchedAPODData) {
+            throw new Error('req APOD not retrieved from api');
+        }
+
+        return fetchedAPODData;
+    }
+
+    catch (err) {
+        throw new Error(`Error retrieving req APOD from api: ${err.message}`);
     }
 }
 

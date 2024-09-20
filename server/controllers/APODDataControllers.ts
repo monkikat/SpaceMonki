@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler = require("express-async-handler");
-import { addAPOD, fetchAPOD, getReqAPOD, getTodayAPOD, getWeeksAPOD, storeAPOD } from "../services/APODDataServices";
+import { addAPOD, fetchAPOD, getRandomAPOD, getRandomAPODS, getReqAPOD, getTodayAPOD, getWeeksAPOD, storeAPOD } from "../services/APODDataServices";
 
 //todays POD
 const getTodayAPODHandler = asyncHandler(async (req: Request, res: Response) => {
@@ -21,6 +21,21 @@ const getWeeksAPODHandler = asyncHandler(async (req: Request, res: Response) => 
     const weeksAPODData = await getWeeksAPOD();
 
     res.status(200).json(weeksAPODData);
+});
+
+//1 random pod
+const getRandomAPODHandler = asyncHandler(async (req: Request, res: Response) => {
+    const randomAPOD = await getRandomAPOD();
+
+    res.status(200).json(randomAPOD);
+});
+
+//multiple random pods
+const getRandomAPODSHandler = asyncHandler(async (req: Request, res: Response) => {
+    const numOfAPOD = 2;
+    const randomAPODS = await getRandomAPODS(numOfAPOD);
+
+    res.status(200).json(randomAPODS);
 });
 
 //add APOD to db
@@ -45,5 +60,7 @@ module.exports = {
     addAPODDataHandler,
     getReqAPODHandler,
     getWeeksAPODHandler,
+    getRandomAPODHandler,
+    getRandomAPODSHandler,
     fetchAndStoreAPODDataHandler,
 };
