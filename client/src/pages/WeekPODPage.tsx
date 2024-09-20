@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import PODDisplay from "../components/PODDisplay";
 import { APODDataType } from "../types/APODDataType";
 
-
 const WeekPODPage = () => {
   const [weekPODData, setWeekPODData] = useState<APODDataType[] | null>(null);
 
@@ -27,7 +26,11 @@ const WeekPODPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="pt-40 p-10">
+      <div className="font-semibold text-9xl pb-20">
+        <p>PODs</p>
+        <p>of the Week</p>
+      </div>
       <ul>
         {
           weekPODData?.map((PODData) => (

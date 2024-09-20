@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import Header from "../components/Header"
 import axios from "axios";
 import { APODDataType } from "../types/APODDataType"
 import LandingPOD from "../components/LandingPOD";
-
 
 const LandingPage = () => {
     const [PODData, setPODData] = useState<APODDataType | null>(null);
@@ -29,8 +27,13 @@ const LandingPage = () => {
     }, []);
 
     return (
-        <div>
-            <Header/>
+        <div
+        className="pt-40 p-10">
+            <div className="font-semibold text-9xl pb-20">
+                <p>A MERN</p>
+                <p>APOD Project</p>
+            </div>
+            
             {
                 PODData ? (
                     <LandingPOD date={PODData?.date} explanation={PODData?.explanation} media_type={PODData?.media_type} service_version={PODData?.service_version} title={PODData?.title} url={PODData?.url} />

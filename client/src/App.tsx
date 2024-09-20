@@ -1,22 +1,24 @@
 import { Route, Routes } from "react-router-dom"
-import NavBar from "./components/NavBar"
+// import NavBar1 from "./components/NavBar1"
 import LandingPage from "./pages/LandingPage"
 import SearchPODPage from "./pages/SearchPODPage"
 import TodayPODPage from "./pages/TodayPODPage"
 import WeekPODPage from "./pages/WeekPODPage"
+import NavBar2 from "./components/NavBar2"
 
 function App() {
 
   return (
-    <div className='app'>
-      <NavBar/>
-        <Routes>
-          <Route index element = {<LandingPage/>} />
-          <Route path='/home' element = {<LandingPage/>} />
-          <Route path='/pods-of-the-week' element = {<WeekPODPage/>} />
-          <Route path='/todays-pod' element = {<TodayPODPage/>} />
-          <Route path='/find-a-pod' element = {<SearchPODPage/>} />
-        </Routes>
+    <div className=''>
+      {/* <NavBar1/> */}
+      <NavBar2/>
+      <Routes>
+        <Route index element = {<LandingPage/>} />
+        <Route path='/home' element = {<LandingPage/>} />
+        <Route path='/pods-of-the-week' element = {<WeekPODPage/>} />
+        <Route path='/todays-pod' element = {<TodayPODPage/>} />
+        <Route path='/find-a-pod' element = {<SearchPODPage/>} />
+      </Routes>
     </div>
   )
 }
