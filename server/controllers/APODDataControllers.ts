@@ -32,7 +32,7 @@ const getRandomAPODHandler = asyncHandler(async (req: Request, res: Response) =>
 
 //multiple random pods
 const getRandomAPODSHandler = asyncHandler(async (req: Request, res: Response) => {
-    const numOfAPOD = 2;
+    const numOfAPOD = 10;
     const randomAPODS = await getRandomAPODS(numOfAPOD);
 
     res.status(200).json(randomAPODS);
@@ -48,7 +48,7 @@ const addAPODDataHandler = asyncHandler(async (req: Request, res: Response) => {
 //api call to NASA APOD API
 //to fetch numOfAPOD images and store in db
 const fetchAndStoreAPODDataHandler = asyncHandler(async (req: Request, res: Response) => {
-    const numOfAPOD = 29;
+    const numOfAPOD = 100;
     const fetchedAPODData = await fetchAPOD(numOfAPOD);
     const storedData = await storeAPOD(fetchedAPODData);
 

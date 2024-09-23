@@ -11,11 +11,10 @@ function App() {
 
   return (
     <div className=''>
-      {/* <NavBar1/> */}
       <NavBar2/>
       <Routes>
         <Route index element = {<LandingPage/>} />
-        <Route path='/home' element = {<LandingPage/>} />
+        <Route path='/' element = {<LandingPage/>} />
         <Route path='/pods-of-the-week' element = {<WeekPODPage/>} />
         <Route path='/todays-pod' element = {<TodayPODPage/>} />
         <Route path='/find-a-pod' element = {<SearchPODPage/>} />

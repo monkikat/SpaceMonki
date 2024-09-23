@@ -10,7 +10,8 @@ const formattedCurrentDate = currentDate.toISOString().split('T')[0];
 // get today's APOD data
 export async function getTodayAPOD(): Promise<IAPODDataType> {
     try {
-        const APODData = await APODDataModel.findOne({ date: formattedCurrentDate });
+        console.log(formattedCurrentDate);
+        const APODData = await APODDataModel.findOne({ date: '2024-09-23' });
 
         if (!APODData) {
             throw new Error('Todays APOD Data not found')
