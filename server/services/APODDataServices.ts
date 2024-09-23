@@ -100,6 +100,11 @@ export async function getRandomAPODS(numOfAPOD: number): Promise<IAPODDataType[]
                 $sample: {
                     size: numOfAPOD
                 }
+            },
+            {
+                $match: {
+                    media_type: 'image'
+                }
             }
         ]);
 

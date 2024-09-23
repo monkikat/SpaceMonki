@@ -1,10 +1,8 @@
-import { ImageCarousalType } from "../types/ImageCarousalType"
 
-const CarousalPODDisplay = (data: ImageCarousalType) => {
+const CarousalPODDisplay = () => {
   return (
-    <div>
-      <img src={data.hdurl || data.url} />
-    </div>
+    <>
+    </>
   )
 }
 

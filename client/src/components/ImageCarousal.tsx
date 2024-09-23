@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { ImageCarousalType } from "../types/ImageCarousalType";
-import CarousalPODDisplay from "./CarousalPODDisplay";
+import { motion } from "framer-motion";
 
 const ImageCarousal = () => {
     const [imagesData, setImagesData] = useState<ImageCarousalType[] | null>(null);
@@ -21,12 +21,13 @@ const ImageCarousal = () => {
         }
 
         fetchAPODData();
+
     }, []);
 
 
     return (
-        <div className="flex">
-            <div className="flex flex-row">
+        <div className="flex flex-row justify-center my-20 w-fit overflow-hidden">
+            {/* <div className="flex flex-row">
                 {
                     imagesData?.map((imageData) => (
                         <li className="list-none">
@@ -34,7 +35,19 @@ const ImageCarousal = () => {
                         </li>
                     ))
                 }
-            </div>
+            </div> */}
+            <motion.div className="flex flex-row h-96 cursor-grab overflow-hidden">
+                <motion.div drag='x' dragConstraints={{right: 0}} className="flex w-fit">
+                    {
+                        imagesData?.map((imageData) => (
+                            <motion.div dragConstraints={{left:12}} className="flex flex-none" key={imageData.date}>
+                                <img src = {imageData.hdurl || imageData.url}
+                                className="rounded-lg mx-20 pointer-events-none"/>
+                            </motion.div>
+                        ))
+                    }
+                </motion.div>
+            </motion.div>
         </div>
     )
 }

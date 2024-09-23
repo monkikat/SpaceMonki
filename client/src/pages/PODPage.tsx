@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import { APODDataType } from "../types/APODDataType";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ReqPODDisplay from "../components/ReqPODDisplay";
+import Divider from "../components/Divider";
 
 const PODPage = () => {
     const {date} = useParams();
@@ -36,6 +38,7 @@ const PODPage = () => {
                     <p>loading.....</p>
                 )
             }
+            <Divider/>
         </div>
     )
 }

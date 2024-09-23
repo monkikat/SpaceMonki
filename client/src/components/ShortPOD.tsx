@@ -5,8 +5,10 @@ const LandingPOD = (data: APODDataType) => {
     return (
         <div className="flex flex-col h-full gap-5 px-5">
             <div className="flex flex-col items-end font-medium text-lg">
-                <p className="text-lg pb-1">{data.title}</p>
-                <p className="text-sm pb-1">{data.date}</p>
+                <p className="text-md pb-1
+                md:text-lg">{data.title}</p>
+                <p className="text-xs pb-1
+                md:text-sm">{data.date}</p>
             </div>
             <div className="flex">
                 {

@@ -11,7 +11,8 @@ const NavBar2 = () => {
     className="fixed flex justify-between items-center h-fit w-screen pt-6 pb-4 px-10 bg-black z-50">
         <Link to="/">
             <img src={Logo} alt="White SPACE MONKI Logo"
-            className='h-10 md:h-14 transform transition-all'/>
+            className='h-10 md:h-14
+            transition-transform duration-300 ease-in-out hover:scale-105'/>
         </Link>         
 
         <button 
@@ -27,15 +28,15 @@ const NavBar2 = () => {
             transform transition-transform ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}
             style={{transition: 'transform 0.3s ease, opacity 0.3s ease'}}>
             <li 
-            className='px-5 py-5 text-right flex-none list-none'>
+            className='px-5 py-5 text-right flex-none list-none transition-transform duration-100 ease-in-out hover:scale-105'>
                 <Link to='/'>Home</Link>
             </li>
             <li
-            className='px-5 py-5 text-right flex-none list-none'>
+            className='px-5 py-5 text-right flex-none list-none transition-transform duration-100 ease-in-out hover:scale-105'>
                 <Link to='/pods-of-the-week'>PODs of the Week </Link>
             </li>
             <li
-            className='px-5 py-5 text-right flex-none list-none'>
+            className='px-5 py-5 text-right flex-none list-none transition-transform duration-100 ease-in-out hover:scale-105'>
                 <Link to='/find-a-pod'>Find a POD</Link>
             </li>
         </div>

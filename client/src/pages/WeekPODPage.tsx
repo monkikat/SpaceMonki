@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react"
 import PODDisplay from "../components/WeekPODDisplay";
 import { APODDataType } from "../types/APODDataType";
+import Divider from "../components/Divider";
 
 const WeekPODPage = () => {
   const [weekPODData, setWeekPODData] = useState<APODDataType[] | null>(null);
@@ -26,7 +26,8 @@ const WeekPODPage = () => {
 
   return (
     <div className="pt-40 p-10">
-      <div className="font-semibold text-9xl pb-20">
+      <div className="font-semibold text-5xl pb-10
+      md:text-9xl md:pb-20">
         <p>PODs</p>
         <p>of the Week</p>
       </div>
@@ -39,6 +40,7 @@ const WeekPODPage = () => {
           ))
         }
       </ul>
+      <Divider/>
     </div>
   )
 }

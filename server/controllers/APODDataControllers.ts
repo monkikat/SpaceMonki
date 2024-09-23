@@ -32,7 +32,7 @@ const getRandomAPODHandler = asyncHandler(async (req: Request, res: Response) =>
 
 //multiple random pods
 const getRandomAPODSHandler = asyncHandler(async (req: Request, res: Response) => {
-    const numOfAPOD = 10;
+    const numOfAPOD = 50;
     const randomAPODS = await getRandomAPODS(numOfAPOD);
 
     res.status(200).json(randomAPODS);
