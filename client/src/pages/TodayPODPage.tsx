@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { APODDataType } from "../types/APODDataType";
 import axios from "axios";
-import PODDisplay from "../components/PODDisplay";
+import PODDisplay from "../components/WeekPODDisplay";
 
 const TodayPODPage = () => {
   const [PODData, setPODData] = useState<APODDataType | null>(null);
@@ -15,7 +15,6 @@ const TodayPODPage = () => {
                 const response = await axios.get(url);
                 const fetchedData = response.data;
                 setPODData(fetchedData);
-                console.log(PODData);
             }
 
             catch (err) {

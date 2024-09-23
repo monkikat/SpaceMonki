@@ -5,6 +5,7 @@ import SearchPODPage from "./pages/SearchPODPage"
 import TodayPODPage from "./pages/TodayPODPage"
 import WeekPODPage from "./pages/WeekPODPage"
 import NavBar2 from "./components/NavBar2"
+import PODPage from "./pages/PODPage"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/pods-of-the-week' element = {<WeekPODPage/>} />
         <Route path='/todays-pod' element = {<TodayPODPage/>} />
         <Route path='/find-a-pod' element = {<SearchPODPage/>} />
+        <Route path='/pod/:date' element = {<PODPage/>} />
       </Routes>
     </div>
   )

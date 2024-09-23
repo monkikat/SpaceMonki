@@ -11,13 +11,12 @@ const LandingPage = () => {
     
     useEffect(() => {
         async function fetchTodayAPOD() {
-            const url = 'http://localhost:4000/' + 'api/apod/';
+            const url = 'http://localhost:4000/' + 'api/apod/' + 'randomAPOD';
 
             try{
                 const response = await axios.get(url);
                 const fetchedData = response.data;
                 setPODData(fetchedData);
-                console.log(PODData);
             }
 
             catch (err) {
@@ -42,7 +41,7 @@ const LandingPage = () => {
                 <div className="flex flex-col justify-end gap-4 w-3/5 pr-5">
                     <p className="text-3xl">What is an APOD?</p>
                     <p className="text-lg">Since 1995, NASA's Astronomy Picture of the day (APOD) has been showcasing breathtaking images of space, from distant galaxies to celestial events visible from Earth. Each day, a new image is selected by professional astronomers to capture the ebauty and mystery of our universe.</p>
-                    <Link to='/todays-pod'>
+                    <Link to={`pod/${PODData?.date}`}>
                         <p className="font-light italic">{`Take a look at today's POD`}</p>
                     </Link>
                 </div>

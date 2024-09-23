@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react"
-import PODDisplay from "../components/PODDisplay";
+import PODDisplay from "../components/WeekPODDisplay";
 import { APODDataType } from "../types/APODDataType";
 
 const WeekPODPage = () => {
@@ -14,7 +14,6 @@ const WeekPODPage = () => {
       try {
         const response = await axios.get(url);
         setWeekPODData(response.data);
-        console.log(weekPODData);
       }
 
       catch (err) {
