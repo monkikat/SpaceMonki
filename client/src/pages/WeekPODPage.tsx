@@ -9,7 +9,7 @@ const WeekPODPage = () => {
 
   useEffect(() => {
     async function fetchWeekAPOD() {
-      const url = 'http://localhost:4000/' + 'api/apod/' + 'week';
+      const url = 'https://spacemonki.onrender.com/' + 'api/apod/' + 'week';
 
       try {
         const response = await axios.get(url);

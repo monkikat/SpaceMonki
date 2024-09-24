@@ -11,7 +11,7 @@ const LandingPage = () => {
     
     useEffect(() => {
         async function fetchRandomAPOD() {
-            const url = 'http://localhost:4000/' + 'api/apod/' + 'randomAPOD';
+            const url = 'https://spacemonki.onrender.com/' + 'api/apod/' + 'randomAPOD';
 
             try{
                 const response = await axios.get(url);
