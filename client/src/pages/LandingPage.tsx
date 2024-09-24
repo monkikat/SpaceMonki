@@ -29,7 +29,9 @@ const LandingPage = () => {
 
     const handleTodayButtonClick = () => {
         const currentDate = new Date();
-        const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+        const formattedCurrentDate = currentDate.getFullYear() + '-' +
+        String(currentDate.getMonth() + 1).padStart(2, '0') + '-' +
+        String(currentDate.getDate()).padStart(2, '0');
 
         navigate(`/pod/${formattedCurrentDate}`);
     }

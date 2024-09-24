@@ -5,7 +5,10 @@ import { APODDataType } from "../types/APODDataType";
 import { NASA_APOD_KEY } from "../utils/config";
 
 const currentDate = new Date();
-const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+// const formattedCurrentDate = currentDate.toISOString().split('T')[0];
+const formattedCurrentDate = currentDate.getFullYear() + '-' +
+    String(currentDate.getMonth() + 1).padStart(2, '0') + '-' +
+    String(currentDate.getDate()).padStart(2, '0');
 
 // get today's APOD data
 export async function getTodayAPOD(): Promise<IAPODDataType> {
@@ -47,8 +50,12 @@ export async function getWeeksAPOD(): Promise<IAPODDataType[]> {
         startDate.setDate(currentDate.getDate() - 7);
         endDate.setDate(currentDate.getDate() - 1);
 
-        const formattedStartDate = startDate.toISOString().split('T')[0];
-        const formattedEndDate = endDate.toISOString().split('T')[0];
+        const formattedStartDate = startDate.getFullYear() + '-' +
+            String(startDate.getMonth() + 1).padStart(2, '0') + '-' +
+            String(startDate.getDate()).padStart(2, '0');
+        const formattedEndDate = endDate.getFullYear() + '-' +
+            String(endDate.getMonth() + 1).padStart(2, '0') + '-' +
+            String(endDate.getDate()).padStart(2, '0');
 
         const weekAPODData = await APODDataModel.find({
             date: {
@@ -137,27 +144,47 @@ export async function addAPOD(APODData: APODDataType): Promise<APODDataType> {
     }
 }
 
-//fetch images from nasa apod api
-export async function fetchAPOD(numOfAPOD: number): Promise<IAPODDataType[]> {
-    const apiStartDate = new Date(currentDate);
-    apiStartDate.setDate(currentDate.getDate() - numOfAPOD);
-    const formattedApiStartDate = apiStartDate.toISOString().split('T')[0];
+// //fetch images from nasa apod api
+// export async function fetchAPOD(numOfAPOD: number): Promise<IAPODDataType[]> {
+//     const apiStartDate = new Date(currentDate);
+//     apiStartDate.setDate(currentDate.getDate() - numOfAPOD);
+//     const formattedApiStartDate = apiStartDate.toISOString().split('T')[0];
 
-    const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_APOD_KEY}` + `&start_date=${formattedApiStartDate}` + `&end_date=${formattedCurrentDate}`;
+//     const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_APOD_KEY}` + `&start_date=${formattedApiStartDate}` + `&end_date=${formattedCurrentDate}`;
 
+//     try {
+//         const response = await axios.get(url);
+//         const fetchedAPODData = response.data;
+
+//         if (!fetchedAPODData) {
+//             throw new Error('APOD Data not retrieved from api');
+//         }
+
+//         return fetchedAPODData;
+//     }
+
+//     catch (err) {
+//         throw new Error(`Error retrieving data from nasa apod api: ${err.message}`);
+//     }
+// }
+
+//fetch latest from nasa apod api
+export async function fetchCurAPOD(): Promise<IAPODDataType> {
+    const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_APOD_KEY}` + `&date=${formattedCurrentDate}`;
+    console.log(formattedCurrentDate);
     try {
         const response = await axios.get(url);
         const fetchedAPODData = response.data;
 
         if (!fetchedAPODData) {
-            throw new Error('APOD Data not retrieved from api');
+            throw new Error('Latest APOD Data not retrieved from api');
         }
 
         return fetchedAPODData;
     }
 
     catch (err) {
-        throw new Error(`Error retrieving data from nasa apod api: ${err.message}`);
+        throw new Error(`Error retrieving latest data from nasa apod api: ${err.message}`);
     }
 }
 
@@ -181,8 +208,25 @@ export async function fetchReqAPOD(reqDate: string): Promise<IAPODDataType> {
     }
 }
 
+// //store fetched data from api to database
+// export async function storeAPOD(APODData: APODDataType[]): Promise<APODDataType[]> {
+//     try {
+//         const storedAPODData = APODDataModel.create(APODData);
+
+//         if (!storedAPODData) {
+//             throw new Error('Data was not stored');
+//         }
+
+//         return storedAPODData;
+//     }
+
+//     catch (err) {
+//         throw new Error(`Data could not be stored: ${err.message}`);
+//     }
+// }
+
 //store fetched data from api to database
-export async function storeAPOD(APODData: APODDataType[]): Promise<APODDataType[]> {
+export async function storeAPOD(APODData: APODDataType): Promise<APODDataType> {
     try {
         const storedAPODData = APODDataModel.create(APODData);
 
@@ -195,5 +239,25 @@ export async function storeAPOD(APODData: APODDataType[]): Promise<APODDataType[
 
     catch (err) {
         throw new Error(`Data could not be stored: ${err.message}`);
+    }
+}
+
+//delete oldest apoddata from db
+export async function deleteOldData(): Promise<void> {
+    try {
+        const numOfAPOD = 100
+        const deleteDate = new Date(currentDate);
+        deleteDate.setDate(currentDate.getDate() - numOfAPOD);
+        const formattedDeleteDate = deleteDate.getFullYear() + '-' +
+            String(deleteDate.getMonth() + 1).padStart(2, '0') + '-' +
+            String(deleteDate.getDate()).padStart(2, '0');
+
+        const oldestApod = await APODDataModel.deleteOne({ date: formattedDeleteDate });
+        if (oldestApod) {
+            console.log(oldestApod);
+        }
+    }
+    catch (err) {
+        throw new Error(`could not find oldest date`)
     }
 }
