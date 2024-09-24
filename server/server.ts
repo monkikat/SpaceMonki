@@ -1,11 +1,8 @@
 import * as express from 'express';
-import { NASA_APOD_KEY, PORT } from './utils/config';
+import { PORT } from './utils/config';
 import { connectDB } from './database/db';
 import cors = require('cors');
-import axios from 'axios';
-import APODDataModel from './models/APODDataModel';
-
-const { fetchAndStoreAPODDataHandler } = require('./controllers/APODDataControllers');
+import './cron'
 
 /* MongoDB Connection */
 connectDB();

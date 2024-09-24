@@ -5,16 +5,18 @@ import { APODDataType } from "../types/APODDataType";
 import { NASA_APOD_KEY } from "../utils/config";
 
 const currentDate = new Date();
-// const formattedCurrentDate = currentDate.toISOString().split('T')[0];
 const formattedCurrentDate = currentDate.getFullYear() + '-' +
     String(currentDate.getMonth() + 1).padStart(2, '0') + '-' +
     String(currentDate.getDate()).padStart(2, '0');
+
+// utc
+// const formattedCurrentDate = currentDate.toISOString().split('T')[0];
 
 // get today's APOD data
 export async function getTodayAPOD(): Promise<IAPODDataType> {
     try {
         console.log(formattedCurrentDate);
-        const APODData = await APODDataModel.findOne({ date: '2024-09-23' });
+        const APODData = await APODDataModel.findOne({ date: formattedCurrentDate });
 
         if (!APODData) {
             throw new Error('Todays APOD Data not found')
@@ -83,6 +85,11 @@ export async function getRandomAPOD(): Promise<IAPODDataType> {
             {
                 $sample: {
                     size: 1
+                }
+            },
+            {
+                $match: {
+                    media_type: 'image'
                 }
             }
         ]);

@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 import { useNavigate } from "react-router-dom";
+import { APODDataType } from "../types/APODDataType";
+import axios from "axios";
 
 const SearchPODPage = () => {
   const maxDate = new Date();
   const minDate = new Date(1995, 5, 16);
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [randomPOD, setRandomPOD] = useState<APODDataType | null>(null);
   const navigate = useNavigate();
 
   const handleDateChange = (date: Date | null) => {
@@ -21,8 +24,28 @@ const SearchPODPage = () => {
     }
   }
 
+  useEffect(() => {
+    async function fetchRandomAPOD() {
+        const url = 'http://localhost:4000/' + 'api/apod/' + 'randomAPOD';
+
+        try{
+            const response = await axios.get(url);
+            const fetchedData = response.data;
+            setRandomPOD(fetchedData);
+        }
+
+        catch (err) {
+            throw new Error(`There was an error retrieving random apod from backend: ${err}`);
+        }
+    }
+    fetchRandomAPOD();
+}, []);
+
+const imgSrc = randomPOD?.hdurl || randomPOD?.url;
+
   return (
-    <div className="relative h-screen justify-center flex flex-col pt-40 md:pt-0 items-center gap-5 ">
+    <div style={{backgroundImage: `url(${imgSrc})`}}
+    className="relative h-screen w-screen bg-cover bg-center justify-center flex flex-col pt-40 md:pt-0 items-center gap-5 ">
       <p className="text-lg md:text-4xl">Ready to explore the universe? Enter a date.</p>
       <div className="flex flex-col items-center md:flex-row gap-5">
         <DatePicker

@@ -40,22 +40,6 @@ const NavBar2 = () => {
                 <Link to='/find-a-pod'>Find a POD</Link>
             </li>
         </div>
-
-        {/* <ul 
-        className={`left-0 md:flex md:opacity-100 items-center ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`}>
-            <li 
-            className='px-5 flex-none'>
-                <Link to='/home'>Home</Link>
-            </li>
-            <li
-            className='px-5 flex-none'>
-                <Link to='/pods-of-the-week'>PODs of the Week </Link>
-            </li>
-            <li
-            className='px-5 flex-none'>
-                <Link to='/find-a-pod'>Find a POD</Link>
-            </li>
-        </ul> */}
     </header>
   )
 }
