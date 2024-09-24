@@ -12,7 +12,7 @@ const getTodayAPODHandler = asyncHandler(async (req: Request, res: Response) => 
 //requested POD
 const getReqAPODHandler = asyncHandler(async (req: Request, res: Response) => {
     const APODData = await getReqAPOD(req.params.date);
-    const storedData = await storeAPOD(APODData);
+    // const storedData = await storeAPOD(APODData);
 
     res.status(200).json(APODData);
 });
@@ -50,7 +50,7 @@ const addAPODDataHandler = asyncHandler(async (req: Request, res: Response) => {
 //to fetch latest APOD and store in db
 const fetchAndStoreAPODDataHandler = asyncHandler(async (req: Request, res: Response) => {
     const fetchedAPODData = await fetchCurAPOD();
-    const storedData = await storeAPOD(fetchedAPODData);
+    await storeAPOD(fetchedAPODData);
 
     const deletedData = await deleteOldData();
 
