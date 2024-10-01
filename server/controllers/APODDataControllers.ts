@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler = require("express-async-handler");
-import { addAPOD, deleteOldData, fetchCurAPOD, getRandomAPOD, getRandomAPODS, getReqAPOD, getTodayAPOD, getWeeksAPOD, storeAPOD } from "../services/APODDataServices";
+import { addAPOD, deleteOldData, fetchAPOD, fetchCurAPOD, getRandomAPOD, getRandomAPODS, getReqAPOD, getTodayAPOD, getWeeksAPOD, storeAPOD, storeMulAPOD } from "../services/APODDataServices";
 
 //todays POD
 const getTodayAPODHandler = asyncHandler(async (req: Request, res: Response) => {
@@ -58,14 +58,12 @@ const fetchAndStoreAPODDataHandler = asyncHandler(async (req: Request, res: Resp
 });
 
 const massFetchAndStoreAPODDataHandler = asyncHandler(async (req: Request, res: Response) => {
-    // const numOfAPOD = 100;
+    const numOfAPOD = 100;
 
-    // const fetchedAPODData = await fetchAPOD(numOfAPOD);
-    // const storedData = await storeAPOD(fetchedAPODData);
+    const fetchedAPODData = await fetchAPOD(numOfAPOD);
+    const storedData = await storeMulAPOD(fetchedAPODData);
 
-    // const deletedData = await deleteOldData();
-
-    // res.status(200).json({ fetchedAPODData });
+    res.status(200).json({ fetchedAPODData });
 });
 
 module.exports = {
@@ -75,5 +73,6 @@ module.exports = {
     getWeeksAPODHandler,
     getRandomAPODHandler,
     getRandomAPODSHandler,
+    massFetchAndStoreAPODDataHandler,
     fetchAndStoreAPODDataHandler,
 };

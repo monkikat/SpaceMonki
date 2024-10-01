@@ -10,12 +10,13 @@ const {
     getRandomAPODSHandler,
     addAPODDataHandler,
     fetchAndStoreAPODDataHandler,
+    massFetchAndStoreAPODDataHandler
 } = require('../controllers/APODDataControllers');
 
 router.route('/').get(getTodayAPODHandler).post(addAPODDataHandler);
 router.route('/week').get(getWeeksAPODHandler);
 router.route('/randomAPOD').get(getRandomAPODHandler);
-router.route('/apiTesting').get(fetchAndStoreAPODDataHandler);
+router.route('/apiTesting').get(massFetchAndStoreAPODDataHandler);
 router.route('/randomAPODS').get(getRandomAPODSHandler);
 router.route('/:date').get(getReqAPODHandler);
 

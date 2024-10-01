@@ -151,29 +151,29 @@ export async function addAPOD(APODData: APODDataType): Promise<APODDataType> {
     }
 }
 
-// //fetch images from nasa apod api
-// export async function fetchAPOD(numOfAPOD: number): Promise<IAPODDataType[]> {
-//     const apiStartDate = new Date(currentDate);
-//     apiStartDate.setDate(currentDate.getDate() - numOfAPOD);
-//     const formattedApiStartDate = apiStartDate.toISOString().split('T')[0];
+//fetch images from nasa apod api
+export async function fetchAPOD(numOfAPOD: number): Promise<IAPODDataType[]> {
+    const apiStartDate = new Date(currentDate);
+    apiStartDate.setDate(currentDate.getDate() - numOfAPOD);
+    const formattedApiStartDate = apiStartDate.toISOString().split('T')[0];
 
-//     const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_APOD_KEY}` + `&start_date=${formattedApiStartDate}` + `&end_date=${formattedCurrentDate}`;
+    const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_APOD_KEY}` + `&start_date=${formattedApiStartDate}` + `&end_date=${formattedCurrentDate}`;
 
-//     try {
-//         const response = await axios.get(url);
-//         const fetchedAPODData = response.data;
+    try {
+        const response = await axios.get(url);
+        const fetchedAPODData = response.data;
 
-//         if (!fetchedAPODData) {
-//             throw new Error('APOD Data not retrieved from api');
-//         }
+        if (!fetchedAPODData) {
+            throw new Error('APOD Data not retrieved from api');
+        }
 
-//         return fetchedAPODData;
-//     }
+        return fetchedAPODData;
+    }
 
-//     catch (err) {
-//         throw new Error(`Error retrieving data from nasa apod api: ${err.message}`);
-//     }
-// }
+    catch (err) {
+        throw new Error(`Error retrieving data from nasa apod api: ${err.message}`);
+    }
+}
 
 //fetch latest from nasa apod api
 export async function fetchCurAPOD(): Promise<IAPODDataType> {
@@ -215,22 +215,22 @@ export async function fetchReqAPOD(reqDate: string): Promise<IAPODDataType> {
     }
 }
 
-// //store fetched data from api to database
-// export async function storeAPOD(APODData: APODDataType[]): Promise<APODDataType[]> {
-//     try {
-//         const storedAPODData = APODDataModel.create(APODData);
+//store multiple fetched data from api to database
+export async function storeMulAPOD(APODData: APODDataType[]): Promise<APODDataType[]> {
+    try {
+        const storedAPODData = APODDataModel.create(APODData);
 
-//         if (!storedAPODData) {
-//             throw new Error('Data was not stored');
-//         }
+        if (!storedAPODData) {
+            throw new Error('Data was not stored');
+        }
 
-//         return storedAPODData;
-//     }
+        return storedAPODData;
+    }
 
-//     catch (err) {
-//         throw new Error(`Data could not be stored: ${err.message}`);
-//     }
-// }
+    catch (err) {
+        throw new Error(`Data could not be stored: ${err.message}`);
+    }
+}
 
 //store fetched data from api to database
 export async function storeAPOD(APODData: APODDataType): Promise<APODDataType> {
