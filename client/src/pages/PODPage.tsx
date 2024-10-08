@@ -12,7 +12,7 @@ const PODPage = () => {
 
     useEffect(() => {
         async function fetchPODData() {
-            const url = 'https://spacemonki.onrender.com/' + 'api/apod/' + `${date}`;
+            const url = 'http://localhost:4000/' + 'api/apod/' + `${date}`;
             console.log(url);
 
             try{

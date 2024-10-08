@@ -12,9 +12,17 @@ const PODDisplay = (data: APODDataType) => {
       md:pt-8
       md:flex-row">
         <div className="flex h-fit w-fit p-5 md:p-10 rounded-md">
-          <img alt="NASA Picure of the Day" src={data.hdurl || data.url}
-          className="flex rounded-md 
-          transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer"/>
+          {
+            data.media_type === 'image' ? (
+              <img alt="NASA Picure of the Day" src={data.hdurl || data.url}
+              className="flex rounded-md 
+              transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer"/>
+            ) : (
+              <iframe className="flex rounded-md
+              transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer"
+              src={data.hdurl || data.url}></iframe>
+            )
+          }
         </div>
         <div className="flex w-full p-5 md:w-1/2 md:p-10 items-end">
           <p>{data.explanation}</p>

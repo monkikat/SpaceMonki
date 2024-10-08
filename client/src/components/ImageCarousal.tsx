@@ -8,7 +8,7 @@ const ImageCarousal = () => {
 
     useEffect(() => {
         async function fetchAPODData() {
-            const url = 'https://spacemonki.onrender.com/' + 'api/apod/' + 'randomAPODS';
+            const url = 'http://localhost:4000/' + 'api/apod/' + 'randomAPODS';
 
             try{
                 const response = await axios.get(url);
