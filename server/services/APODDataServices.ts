@@ -66,11 +66,13 @@ export async function getWeeksAPOD(): Promise<IAPODDataType[]> {
             }
         });
 
-        if (!weekAPODData) {
-            throw new Error('weeks apod data not found');
-        }
+        // if (!weekAPODData) {
+        //     throw new Error('weeks apod data not found');
+        // }
 
-        return weekAPODData;
+        // return weekAPODData;
+
+        return (!weekAPODData || weekAPODData.length != 7) ? await fetchAPOD(7) : weekAPODData;
     }
 
     catch (err) {
@@ -153,11 +155,17 @@ export async function addAPOD(APODData: APODDataType): Promise<APODDataType> {
 
 //fetch images from nasa apod api
 export async function fetchAPOD(numOfAPOD: number): Promise<IAPODDataType[]> {
+    const yesterdayDate = new Date(currentDate);
+    yesterdayDate.setDate(currentDate.getDate() - 1);
+    const formattedYesterdayDate = yesterdayDate.getFullYear() + '-' +
+        String(yesterdayDate.getMonth() + 1).padStart(2, '0') + '-' +
+        String(yesterdayDate.getDate()).padStart(2, '0');
+
     const apiStartDate = new Date(currentDate);
     apiStartDate.setDate(currentDate.getDate() - numOfAPOD);
     const formattedApiStartDate = apiStartDate.toISOString().split('T')[0];
 
-    const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_APOD_KEY}` + `&start_date=${formattedApiStartDate}` + `&end_date=${formattedCurrentDate}`;
+    const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_APOD_KEY}` + `&start_date=${formattedApiStartDate}` + `&end_date=${formattedYesterdayDate}`;
 
     try {
         const response = await axios.get(url);
